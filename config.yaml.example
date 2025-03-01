@@ -1,0 +1,53 @@
+# =====================================================
+# 代理配置文件示例
+# 使用前请复制此文件为 config.yaml 并填写你的个人配置
+# =====================================================
+
+
+# 服务器配置
+server:
+  host: "0.0.0.0"                       # 监听地址，0.0.0.0 表示所有网络接口
+  port: 8000                            # 监听端口
+
+# CORS（跨域资源共享）设置
+cors:
+  allow_origins:                        # 允许的源域名列表
+    - "*"                               # "*" 表示允许所有域名，生产环境应设置为特定域名
+    # - "https://your-app.com"          # 生产环境示例
+    # - "http://localhost:3000"         # 本地开发环境示例
+  allow_credentials: true               # 是否允许包含凭据（cookies等）
+  allow_methods:                        # 允许的 HTTP 方法
+    - "*"                               # "*" 表示允许所有方法
+    # - "GET"                           # 也可以指定具体方法
+    # - "POST"
+    # - "OPTIONS"
+  allow_headers:                        # 允许的 HTTP 头
+    - "*"                               # "*" 表示允许所有头部
+
+# 日志配置
+logging:
+  level: "INFO"                         # 日志级别: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"  # 日志格式
+
+# 调试模式 - 启用将在控制台输出详细信息
+debug: false                            # true 启用调试模式，false 关闭
+
+# 原始 AI API 配置
+target_api:
+  url: "https://example.com/v1"            # 要代理的目标 API 基础 URL，末尾不要带斜杠
+  api_key: "YOUR_API_KEY_HERE"          # 目标 API 的认证密钥
+
+# 重写 API 配置（用于重写）
+rewrite_api:
+  url: "https://example.com/v1/chat/completions"  # 重写 API 的 URL（需包含endpoint）
+  api_key: "YOUR_REWRITE_API_KEY_HERE"  # 重写 API 的认证密钥
+  model: "deepseek-ai/DeepSeek-R1"  # 重写使用的模型
+  style: "更加自然的中文 去除机械味"          # 重写的风格描述，会在提示词中使用
+  timeout: 60.0                         # API 请求超时时间（秒）
+
+# 高级设置
+advanced:
+  max_retries: 3                        # API 请求失败时的最大重试次数
+  retry_delay: 1.0                      # 重试之间的延迟时间（秒）
+  keep_alive: true                      # 是否保持 HTTP 连接活跃
+  max_connections: 100                  # 最大并发连接数
